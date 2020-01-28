@@ -1,0 +1,35 @@
+plugins {
+	id 'java'
+	id 'com.github.johnrengelman.shadow' version "5.2.0"
+}
+
+group = 'lt.gzeskas.netty'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '1.11'
+
+jar {
+	manifest {
+		attributes 'Main-Class': 'lt.gzeskas.http.SimpleNettyHttpServerApp'
+	}
+}
+
+repositories {
+	jcenter()
+	mavenCentral()
+}
+
+dependencies {
+	//Netty
+	compile 'io.netty:netty-all:4.1.45.Final'
+
+	//Kafka
+	compile group: 'org.apache.kafka', name: 'kafka-clients', version: '2.4.0'
+
+	//Redis lettuce
+	compile group: 'io.lettuce', name: 'lettuce-core', version: '5.2.1.RELEASE'
+
+	//Loging
+	compile group: 'org.slf4j', name: 'slf4j-api', version: '1.7.25'
+	compile group: 'ch.qos.logback', name: 'logback-core', version: '1.2.3'
+	compile group: 'ch.qos.logback', name: 'logback-classic', version: '1.2.3'
+}
