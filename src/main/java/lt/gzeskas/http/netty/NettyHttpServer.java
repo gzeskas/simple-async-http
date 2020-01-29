@@ -1,11 +1,9 @@
 package lt.gzeskas.http.netty;
 
+import io.netty.channel.*;
 import lt.gzeskas.http.netty.initializer.HttpInitializer;
 
 import io.netty.bootstrap.ServerBootstrap;
-import io.netty.channel.ChannelFuture;
-import io.netty.channel.ChannelOption;
-import io.netty.channel.EventLoopGroup;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
 import io.netty.handler.logging.LogLevel;
@@ -35,9 +33,9 @@ public class NettyHttpServer implements HttpServer {
     @Override
     public void start() {
         try {
-            var serverBootstrap = new ServerBootstrap();
+            ServerBootstrap serverBootstrap = new ServerBootstrap();
             serverBootstrap.group(bossGroup, workerGroup)
-                    .channel(NioServerSocketChannel.class)
+                    .channelFactory(NioServerSocketChannel::new)
                     .handler(new LoggingHandler(LogLevel.INFO))
                     .childHandler(new HttpInitializer())
                     .option(ChannelOption.SO_BACKLOG, 128)

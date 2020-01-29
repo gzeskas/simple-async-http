@@ -22,7 +22,7 @@ public class HttpRequestHandler extends ChannelInboundHandlerAdapter {
 
         if (msg instanceof HttpRequest) {
             HttpRequest httpRequest = (HttpRequest) msg;
-            var response = new DefaultHttpResponse(httpRequest.protocolVersion(), HttpResponseStatus.OK);
+            DefaultHttpResponse response = new DefaultHttpResponse(httpRequest.protocolVersion(), HttpResponseStatus.OK);
             ctx.writeAndFlush(response).addListener(future -> ctx.close());
         } else if (msg instanceof DefaultLastHttpContent) {
             DefaultLastHttpContent content = (DefaultLastHttpContent) msg;
